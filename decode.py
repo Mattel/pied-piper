@@ -3,7 +3,7 @@ from __future__ import print_function
 import sys
 import wave
 
-from cStringIO import StringIO
+from io import StringIO
 
 import alsaaudio
 import colorama
@@ -121,13 +121,13 @@ def display(s):
     cprint(figlet_format(s.replace(' ', '   '), font='doom'), 'yellow')
 
 def listen_linux(frame_rate=44100, interval=0.1):
-    mic = alsaaudio.PCM(alsaaudio.PCM_CAPTURE, alsaaudio.PCM_NORMAL)
-    mic.setchannels(1)
-    mic.setrate(44100)
-    mic.setformat(alsaaudio.PCM_FORMAT_S16_LE)
-
     num_frames = int(round((interval / 2) * frame_rate))
-    mic.setperiodsize(num_frames)
+
+    mic = alsaaudio.PCM(alsaaudio.PCM_CAPTURE, alsaaudio.PCM_NORMAL, channels=1, rate=44100, format=alsaaudio.PCM_FORMAT_S16_LE, periodsize=num_frames)
+    # mic.setchannels(1)
+    # mic.setrate(44100)
+    # mic.setformat(alsaaudio.PCM_FORMAT_S16_LE)
+    # mic.setperiodsize(num_frames)
 
     in_packet = False
     packet = []
@@ -137,7 +137,7 @@ def listen_linux(frame_rate=44100, interval=0.1):
         if not l:
             continue
 
-        chunk = np.fromstring(data, dtype=np.int16)
+        chunk = np.frombuffer(data, dtype=np.int16)
         dom = dominant(frame_rate, chunk)
 
         if in_packet and match(dom, HANDSHAKE_END_HZ):
@@ -145,7 +145,16 @@ def listen_linux(frame_rate=44100, interval=0.1):
 
             try:
                 byte_stream = RSCodec(FEC_BYTES).decode(byte_stream)
-                display(str(byte_stream))
+                print(type(byte_stream))
+                for s in byte_stream:
+                    print(type(s))
+                    try:
+                        display(s.decode())
+                    except:
+                        print("Unable to decode string")
+                        print(str(s))
+
+                # print(byte_stream.decode())
                 display("")
             except ReedSolomonError as e:
                 print("{}: {}".format(e, byte_stream))
