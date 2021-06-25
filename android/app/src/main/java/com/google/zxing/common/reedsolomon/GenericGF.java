@@ -16,6 +16,8 @@
 
 package com.google.zxing.common.reedsolomon;
 
+import android.util.Log;
+
 /**
  * <p>This class contains utility methods for performing mathematical operations over
  * the Galois Fields. Operations use a given primitive polynomial in calculations.</p>
@@ -39,6 +41,7 @@ public final class GenericGF {
   public static final GenericGF MAXICODE_FIELD_64 = AZTEC_DATA_6;
   
   private static final int INITIALIZATION_THRESHOLD = 0;
+  private static String TAG = "GenericGF";
 
   private int[] expTable;
   private int[] logTable;
@@ -171,7 +174,16 @@ public final class GenericGF {
     if (a == 0 || b == 0) {
       return 0;
     }
-    return expTable[(logTable[a] + logTable[b]) % (size - 1)];
+    if (a < 0 || b < 0) {
+      Log.d(TAG, String.format("1: a %d, b %d, size: %d ", a, b, size));
+      return 0;
+    }
+    try {
+      return expTable[(logTable[a] + logTable[b]) % (size - 1)];
+    } catch (Exception e){
+      Log.d(TAG, String.format("2: a %d, b %d, size: %d ", a, b, size));
+      return 0;
+    }
   }
 
   public int getSize() {

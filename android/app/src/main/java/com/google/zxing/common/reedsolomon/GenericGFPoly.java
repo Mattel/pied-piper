@@ -16,6 +16,8 @@
 
 package com.google.zxing.common.reedsolomon;
 
+import android.util.Log;
+
 /**
  * <p>Represents a polynomial whose coefficients are elements of a GF.
  * Instances of this class are immutable.</p>
@@ -29,6 +31,7 @@ final class GenericGFPoly {
 
   private final GenericGF field;
   private final int[] coefficients;
+  static String TAG = "GenericGFPoly";
 
   /**
    * @param field the {@link GenericGF} instance representing the field to use
@@ -191,6 +194,7 @@ final class GenericGFPoly {
     }
     int size = coefficients.length;
     int[] product = new int[size + degree];
+    Log.d(TAG, String.format("multiplyByMonomial: size %d", size));
     for (int i = 0; i < size; i++) {
       product[i] = field.multiply(coefficients[i], coefficient);
     }

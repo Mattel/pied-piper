@@ -10,26 +10,88 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dip"
         android:orientation="vertical">
-    <EditText
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Say Something"/>
 
-    <Button
-        android:id="@+id/play_tone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="10dip"
-        android:text="Play Tone" />
+        <EditText
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Say Something"
+            android:text="hello" />
 
-    <ProgressBar
-        android:id="@+id/progress"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip" />
+        <Button
+            android:id="@+id/play_tone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dip"
+            android:text="Play Tone" />
+
+        <Button
+            android:id="@+id/play_tone_bin_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dip"
+            android:text="Play Tone Bin" />
+        <Button
+            android:id="@+id/stop_playing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="10dip"
+            android:text="Stop" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Error Correction Bytes" />
+
+            <EditText
+                android:id="@+id/editNumber_ErrorCorrectionBytes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number|numberDecimal"
+                android:text="30" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_ToneDurationNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tone Duration" />
+
+            <EditText
+                android:id="@+id/editNumber_ToneDurationNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="number|numberDecimal"
+                android:text="0.3" />
+        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progress"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip" />
+
+        <com.jraska.console.Console
+            android:layout_width="match_parent"
+            android:layout_height="422dp"
+            android:paddingBottom="40dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
